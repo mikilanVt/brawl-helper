@@ -6,979 +6,203 @@
   <title>Brawl Helper</title>
 
   <style>
-    :root {
-      --bg: #0b1020;
-      --card: rgba(255, 255, 255, 0.08);
-      --card-strong: rgba(255, 255, 255, 0.13);
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --blue: #38bdf8;
-      --purple: #a78bfa;
-      --green: #34d399;
-      --yellow: #facc15;
-      --red: #fb7185;
-      --border: rgba(255, 255, 255, 0.14);
-      --shadow: 0 22px 70px rgba(0, 0, 0, 0.35);
-      --radius: 24px;
-    }
-
     * {
       box-sizing: border-box;
     }
 
+    html,
     body {
+      width: 100%;
+      height: 100%;
       margin: 0;
-      min-height: 100vh;
-      font-family: Inter, Arial, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 32%),
-        radial-gradient(circle at top right, rgba(167, 139, 250, 0.22), transparent 30%),
-        linear-gradient(135deg, #070b16, #111827 55%, #0f172a);
-      color: var(--text);
+      overflow: hidden;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    body {
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: #ffffff;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 204, 0, 0.18), transparent 32%),
+        radial-gradient(circle at 80% 15%, rgba(255, 70, 85, 0.2), transparent 34%),
+        radial-gradient(circle at 50% 90%, rgba(0, 170, 255, 0.2), transparent 38%),
+        linear-gradient(135deg, #101525, #171b2e 45%, #0b0f1d);
     }
 
     .page {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 28px 0 48px;
+      width: 100%;
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
     }
 
-    header {
+    .card {
+      width: min(620px, 100%);
+      min-height: 360px;
+      padding: 46px 34px 34px;
+      border-radius: 34px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 28px;
-    }
+      text-align: center;
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      font-size: 24px;
-    }
-
-    .logo-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 15px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      box-shadow: 0 14px 40px rgba(56, 189, 248, 0.26);
-    }
-
-    .nav {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
-
-    .nav a {
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 14px;
-      padding: 10px 12px;
-      border: 1px solid transparent;
-      border-radius: 999px;
-      transition: 0.2s;
-    }
-
-    .nav a:hover {
-      color: var(--text);
-      border-color: var(--border);
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 20px;
-      align-items: stretch;
-      margin-bottom: 20px;
-    }
-
-    .hero-card,
-    .panel {
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--card);
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card {
-      padding: 34px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.07));
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
       position: relative;
       overflow: hidden;
     }
 
-    .hero-card::after {
+    .card::before {
       content: "";
       position: absolute;
-      right: -80px;
-      top: -80px;
       width: 220px;
       height: 220px;
-      background: linear-gradient(135deg, rgba(56, 189, 248, 0.3), rgba(167, 139, 250, 0.3));
-      border-radius: 999px;
-      filter: blur(4px);
+      top: -90px;
+      right: -70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 204, 0, 0.45), rgba(255, 70, 85, 0.22));
+      filter: blur(2px);
+      opacity: 0.9;
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      color: #dbeafe;
-      background: rgba(56, 189, 248, 0.14);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      font-weight: 800;
-      font-size: 13px;
-      margin-bottom: 18px;
+    .card::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      bottom: -80px;
+      left: -60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0, 170, 255, 0.35), rgba(120, 90, 255, 0.28));
+      filter: blur(2px);
+      opacity: 0.9;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+    }
+
+    .logo {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 24px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      font-size: 34px;
+      font-weight: 900;
+
+      background: linear-gradient(135deg, #ffcc00, #ff4655);
+      box-shadow: 0 16px 38px rgba(255, 70, 85, 0.28);
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(38px, 7vw, 72px);
-      line-height: 0.92;
-      letter-spacing: -0.075em;
-      max-width: 720px;
+      font-size: clamp(32px, 6vw, 58px);
+      line-height: 1.02;
+      letter-spacing: -0.06em;
+      font-weight: 950;
+      text-wrap: balance;
     }
 
-    .gradient-text {
-      background: linear-gradient(90deg, var(--blue), var(--purple), var(--green));
+    .accent {
+      display: block;
+      margin-top: 8px;
+      background: linear-gradient(90deg, #ffcc00, #ff7a18, #ff4655);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
     }
 
-    .hero-text {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-      max-width: 650px;
-      margin: 22px 0 0;
-    }
-
-    .hero-actions {
+    .button-wrap {
+      position: relative;
+      z-index: 2;
+      width: 100%;
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 26px;
+      justify-content: center;
+      margin-top: 36px;
     }
 
-    button,
-    .button {
+    button {
       border: 0;
       cursor: pointer;
-      color: var(--text);
-      font-weight: 900;
-      border-radius: 16px;
-      padding: 13px 18px;
-      background: linear-gradient(135deg, var(--blue), var(--purple));
-      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.18);
-      transition: transform 0.16s, filter 0.16s, background 0.16s;
-    }
-
-    button:hover,
-    .button:hover {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-    }
-
-    button.secondary {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border);
-      box-shadow: none;
-    }
-
-    button.danger {
-      background: rgba(251, 113, 133, 0.18);
-      border: 1px solid rgba(251, 113, 133, 0.28);
-      box-shadow: none;
-    }
-
-    .quick-card {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 18px;
-    }
-
-    .random-box {
-      min-height: 180px;
-      border-radius: 22px;
-      background:
-        radial-gradient(circle at top, rgba(250, 204, 21, 0.14), transparent 40%),
-        rgba(255, 255, 255, 0.06);
-      border: 1px solid var(--border);
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .random-name {
-      font-size: 38px;
+      padding: 17px 34px;
+      border-radius: 18px;
+      color: #171717;
+      font-size: 18px;
       font-weight: 950;
-      letter-spacing: -0.05em;
-      margin: 0;
+      letter-spacing: -0.02em;
+
+      background: linear-gradient(135deg, #ffdc3d, #ff9f1c);
+      box-shadow:
+        0 18px 36px rgba(255, 159, 28, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
     }
 
-    .random-role {
-      color: var(--muted);
-      font-weight: 800;
-      margin-top: 8px;
+    button:hover {
+      transform: translateY(-3px) scale(1.02);
+      filter: brightness(1.05);
+      box-shadow:
+        0 24px 46px rgba(255, 159, 28, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.65);
     }
 
-    .section {
-      margin-top: 20px;
+    button:active {
+      transform: translateY(0) scale(0.98);
     }
 
-    .section-title {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 16px;
-      margin: 0 0 14px;
-    }
-
-    .section-title h2 {
-      margin: 0;
-      font-size: 28px;
-      letter-spacing: -0.05em;
-    }
-
-    .section-title p {
-      margin: 0;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-    }
-
-    .panel {
-      padding: 20px;
-    }
-
-    .span-4 {
-      grid-column: span 4;
-    }
-
-    .span-8 {
-      grid-column: span 8;
-    }
-
-    .filters {
-      display: grid;
-      grid-template-columns: 1fr 1fr auto;
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text);
-      border-radius: 14px;
-      padding: 13px 14px;
-      outline: none;
-      font-weight: 700;
-    }
-
-    select option {
-      background: #111827;
-      color: white;
-    }
-
-    input::placeholder {
-      color: #64748b;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 12px;
-    }
-
-    .brawler-card {
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.065);
-      padding: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: 0.18s;
-    }
-
-    .brawler-card:hover {
-      transform: translateY(-3px);
-      background: var(--card-strong);
-    }
-
-    .brawler-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: start;
-    }
-
-    .brawler-name {
-      margin: 0;
-      font-size: 20px;
-      letter-spacing: -0.04em;
-    }
-
-    .star {
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: none;
-      padding: 8px 10px;
-      border-radius: 12px;
-    }
-
-    .star.active {
-      background: rgba(250, 204, 21, 0.18);
-      border-color: rgba(250, 204, 21, 0.38);
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .tag {
-      border-radius: 999px;
-      padding: 6px 9px;
-      font-size: 12px;
-      font-weight: 900;
-      color: #dbeafe;
-      background: rgba(56, 189, 248, 0.12);
-      border: 1px solid rgba(56, 189, 248, 0.18);
-    }
-
-    .tag.good {
-      color: #dcfce7;
-      background: rgba(52, 211, 153, 0.12);
-      border-color: rgba(52, 211, 153, 0.2);
-    }
-
-    .tag.warn {
-      color: #fef9c3;
-      background: rgba(250, 204, 21, 0.12);
-      border-color: rgba(250, 204, 21, 0.2);
-    }
-
-    .muted {
-      color: var(--muted);
-    }
-
-    .small {
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .team-box {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
-    .team {
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.06);
-      padding: 14px;
-      min-height: 130px;
-    }
-
-    .team h3 {
-      margin: 0 0 10px;
-      letter-spacing: -0.03em;
-    }
-
-    .player-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .player {
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(167, 139, 250, 0.14);
-      border: 1px solid rgba(167, 139, 250, 0.24);
-      font-weight: 800;
-      font-size: 13px;
-    }
-
-    .result {
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 18px;
-      border: 1px solid rgba(52, 211, 153, 0.22);
-      background: rgba(52, 211, 153, 0.09);
-      color: #dcfce7;
-      font-weight: 800;
-      line-height: 1.5;
-    }
-
-    footer {
-      margin-top: 32px;
-      color: var(--muted);
-      text-align: center;
-      font-weight: 700;
-      font-size: 13px;
-    }
-
-    @media (max-width: 880px) {
-      header,
-      .hero,
-      .grid,
-      .filters,
-      .team-box {
-        grid-template-columns: 1fr;
+    @media (max-width: 480px) {
+      .page {
+        padding: 16px;
       }
 
-      .hero {
-        display: grid;
+      .card {
+        min-height: 330px;
+        padding: 36px 22px 28px;
+        border-radius: 28px;
       }
 
-      .span-4,
-      .span-8 {
-        grid-column: span 1;
+      .logo {
+        width: 64px;
+        height: 64px;
+        font-size: 30px;
+        border-radius: 20px;
       }
 
-      header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .nav {
-        justify-content: flex-start;
-      }
-
-      .hero-card {
-        padding: 24px;
+      button {
+        width: 100%;
+        max-width: 260px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
-    <header>
-      <a class="logo" href="#">
-        <span class="logo-mark">⚡</span>
-        <span>Brawl Helper</span>
-      </a>
+  <main class="page">
+    <section class="card">
+      <div class="content">
+        <div class="logo">BH</div>
 
-      <nav class="nav">
-        <a href="#picker">Picker</a>
-        <a href="#brawlers">Brawlers</a>
-        <a href="#teams">Teams</a>
-      </nav>
-    </header>
-
-    <section class="hero">
-      <div class="hero-card">
-        <div class="badge">🎮 private helper for friends</div>
         <h1>
-          Pick smarter. <br>
-          Play cleaner. <br>
-          <span class="gradient-text">Win harder.</span>
+          Помошник в пике
+          <span class="accent">для Рангового боя</span>
         </h1>
-        <p class="hero-text">
-          Мини-сайт для быстрых выборов: рандомный боец, фильтр по режиму,
-          избранные пики и деление игроков на команды. Всё работает прямо в браузере.
-        </p>
-
-        <div class="hero-actions">
-          <a class="button" href="#picker">Выбрать бойца</a>
-          <a class="button secondary" href="#teams">Разделить команды</a>
-        </div>
       </div>
 
-      <div class="panel quick-card" id="picker">
-        <div>
-          <div class="section-title">
-            <div>
-              <h2>Quick Pick</h2>
-              <p>рандомный выбор</p>
-            </div>
-          </div>
-
-          <div class="random-box">
-            <div>
-              <p class="random-name" id="randomName">Нажми кнопку</p>
-              <div class="random-role" id="randomRole">и получи бойца</div>
-            </div>
-          </div>
-        </div>
-
-        <button id="randomBtn">🎲 Random brawler</button>
+      <div class="button-wrap">
+        <button type="button">Начать драфт</button>
       </div>
     </section>
-
-    <section class="section" id="brawlers">
-      <div class="section-title">
-        <div>
-          <h2>Brawler database</h2>
-          <p>поиск, режимы, роли и избранное</p>
-        </div>
-      </div>
-
-      <div class="grid">
-        <div class="panel span-8">
-          <div class="filters">
-            <input id="searchInput" type="text" placeholder="Поиск бойца..." />
-
-            <select id="modeSelect">
-              <option value="all">Все режимы</option>
-              <option value="gem">Gem Grab</option>
-              <option value="brawlball">Brawl Ball</option>
-              <option value="heist">Heist</option>
-              <option value="knockout">Knockout</option>
-              <option value="hotzone">Hot Zone</option>
-              <option value="showdown">Showdown</option>
-            </select>
-
-            <button class="secondary" id="onlyFavBtn">⭐ Favorites</button>
-          </div>
-
-          <div class="cards" id="cards"></div>
-        </div>
-
-        <aside class="panel span-4">
-          <div class="section-title">
-            <div>
-              <h2>Suggestion</h2>
-              <p>быстрый совет</p>
-            </div>
-          </div>
-
-          <p class="muted small">
-            Выбери режим, и сайт покажет бойцов, которые по нашей мини-базе лучше подходят
-            под этот тип игры. Это не “абсолютная мета”, а удобная стартовая шпаргалка.
-          </p>
-
-          <div class="result" id="suggestionBox">
-            Выбери режим сверху, чтобы получить совет.
-          </div>
-
-          <br>
-
-          <button class="danger" id="clearFavBtn">Очистить избранное</button>
-        </aside>
-      </div>
-    </section>
-
-    <section class="section" id="teams">
-      <div class="section-title">
-        <div>
-          <h2>Team splitter</h2>
-          <p>разделить друзей на две команды</p>
-        </div>
-      </div>
-
-      <div class="panel">
-        <p class="muted small">
-          Введи имена через запятую. Например:
-          <b>Виталя, Макс, Дима, Саша, Богдан, Рома</b>
-        </p>
-
-        <input id="playersInput" type="text" placeholder="Виталя, Макс, Дима, Саша, Богдан, Рома" />
-
-        <div class="hero-actions">
-          <button id="splitBtn">⚔️ Split teams</button>
-          <button class="secondary" id="exampleBtn">Заполнить пример</button>
-        </div>
-
-        <div class="team-box">
-          <div class="team">
-            <h3>Team A</h3>
-            <div class="player-list" id="teamA"></div>
-          </div>
-
-          <div class="team">
-            <h3>Team B</h3>
-            <div class="player-list" id="teamB"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      Brawl Helper · static site · saved locally in your browser
-    </footer>
-  </div>
-
-  <script>
-    const brawlers = [
-      {
-        name: "Shelly",
-        role: "Damage / Close range",
-        modes: ["brawlball", "showdown"],
-        tags: ["burst", "simple", "close"]
-      },
-      {
-        name: "Colt",
-        role: "Damage / Long range",
-        modes: ["heist", "knockout"],
-        tags: ["aim", "damage", "range"]
-      },
-      {
-        name: "Brock",
-        role: "Damage / Long range",
-        modes: ["knockout", "heist"],
-        tags: ["range", "poke", "walls"]
-      },
-      {
-        name: "Nita",
-        role: "Control / Mid range",
-        modes: ["gem", "hotzone", "brawlball"],
-        tags: ["control", "bear", "pressure"]
-      },
-      {
-        name: "Jessie",
-        role: "Control / Turret",
-        modes: ["gem", "hotzone", "heist"],
-        tags: ["turret", "control", "safe"]
-      },
-      {
-        name: "Dynamike",
-        role: "Thrower",
-        modes: ["heist", "hotzone", "knockout"],
-        tags: ["thrower", "walls", "burst"]
-      },
-      {
-        name: "Poco",
-        role: "Support / Heal",
-        modes: ["brawlball", "hotzone", "gem"],
-        tags: ["heal", "team", "safe"]
-      },
-      {
-        name: "El Primo",
-        role: "Tank",
-        modes: ["brawlball", "showdown"],
-        tags: ["tank", "jump", "pressure"]
-      },
-      {
-        name: "Barley",
-        role: "Thrower / Control",
-        modes: ["hotzone", "heist", "gem"],
-        tags: ["thrower", "zone", "control"]
-      },
-      {
-        name: "Rico",
-        role: "Damage / Bounce",
-        modes: ["brawlball", "heist", "knockout"],
-        tags: ["bounce", "range", "damage"]
-      },
-      {
-        name: "Penny",
-        role: "Control / Artillery",
-        modes: ["gem", "hotzone"],
-        tags: ["turret", "zone", "safe"]
-      },
-      {
-        name: "Darryl",
-        role: "Tank / Assassin",
-        modes: ["brawlball", "showdown", "heist"],
-        tags: ["roll", "tank", "engage"]
-      },
-      {
-        name: "Piper",
-        role: "Sniper",
-        modes: ["knockout", "gem"],
-        tags: ["sniper", "range", "aim"]
-      },
-      {
-        name: "Pam",
-        role: "Support / Control",
-        modes: ["gem", "hotzone"],
-        tags: ["heal", "control", "tank"]
-      },
-      {
-        name: "Frank",
-        role: "Heavy Tank",
-        modes: ["brawlball", "hotzone"],
-        tags: ["tank", "stun", "pressure"]
-      },
-      {
-        name: "Mortis",
-        role: "Assassin",
-        modes: ["gem", "knockout"],
-        tags: ["dash", "skill", "finish"]
-      },
-      {
-        name: "Tara",
-        role: "Control / Team fight",
-        modes: ["gem", "brawlball", "hotzone"],
-        tags: ["pull", "control", "combo"]
-      },
-      {
-        name: "Gene",
-        role: "Support / Pull",
-        modes: ["gem", "knockout"],
-        tags: ["pull", "poke", "support"]
-      },
-      {
-        name: "Spike",
-        role: "Damage / Control",
-        modes: ["gem", "brawlball", "hotzone"],
-        tags: ["damage", "slow", "control"]
-      },
-      {
-        name: "Crow",
-        role: "Assassin / Poison",
-        modes: ["showdown", "gem", "knockout"],
-        tags: ["poison", "speed", "annoying"]
-      },
-      {
-        name: "Leon",
-        role: "Assassin",
-        modes: ["showdown", "knockout"],
-        tags: ["invisible", "burst", "finish"]
-      },
-      {
-        name: "Sandy",
-        role: "Support / Control",
-        modes: ["gem", "hotzone", "brawlball"],
-        tags: ["sandstorm", "control", "team"]
-      },
-      {
-        name: "Max",
-        role: "Support / Speed",
-        modes: ["brawlball", "gem", "hotzone"],
-        tags: ["speed", "team", "tempo"]
-      },
-      {
-        name: "Surge",
-        role: "Damage / Upgrade",
-        modes: ["showdown", "brawlball", "gem"],
-        tags: ["upgrade", "burst", "carry"]
-      }
-    ];
-
-    const modeNames = {
-      all: "Все режимы",
-      gem: "Gem Grab",
-      brawlball: "Brawl Ball",
-      heist: "Heist",
-      knockout: "Knockout",
-      hotzone: "Hot Zone",
-      showdown: "Showdown"
-    };
-
-    const cards = document.getElementById("cards");
-    const searchInput = document.getElementById("searchInput");
-    const modeSelect = document.getElementById("modeSelect");
-    const onlyFavBtn = document.getElementById("onlyFavBtn");
-    const clearFavBtn = document.getElementById("clearFavBtn");
-    const suggestionBox = document.getElementById("suggestionBox");
-    const randomBtn = document.getElementById("randomBtn");
-    const randomName = document.getElementById("randomName");
-    const randomRole = document.getElementById("randomRole");
-    const playersInput = document.getElementById("playersInput");
-    const splitBtn = document.getElementById("splitBtn");
-    const exampleBtn = document.getElementById("exampleBtn");
-    const teamA = document.getElementById("teamA");
-    const teamB = document.getElementById("teamB");
-
-    let favorites = JSON.parse(localStorage.getItem("brawlFavorites") || "[]");
-    let onlyFavorites = false;
-
-    function saveFavorites() {
-      localStorage.setItem("brawlFavorites", JSON.stringify(favorites));
-    }
-
-    function isFavorite(name) {
-      return favorites.includes(name);
-    }
-
-    function toggleFavorite(name) {
-      if (isFavorite(name)) {
-        favorites = favorites.filter(item => item !== name);
-      } else {
-        favorites.push(name);
-      }
-
-      saveFavorites();
-      renderCards();
-    }
-
-    function getFilteredBrawlers() {
-      const query = searchInput.value.trim().toLowerCase();
-      const mode = modeSelect.value;
-
-      return brawlers.filter(brawler => {
-        const matchesSearch =
-          brawler.name.toLowerCase().includes(query) ||
-          brawler.role.toLowerCase().includes(query) ||
-          brawler.tags.some(tag => tag.toLowerCase().includes(query));
-
-        const matchesMode = mode === "all" || brawler.modes.includes(mode);
-        const matchesFav = !onlyFavorites || isFavorite(brawler.name);
-
-        return matchesSearch && matchesMode && matchesFav;
-      });
-    }
-
-    function renderCards() {
-      const list = getFilteredBrawlers();
-
-      if (list.length === 0) {
-        cards.innerHTML = `
-          <div class="brawler-card">
-            <h3 class="brawler-name">Ничего не найдено</h3>
-            <p class="muted small">Попробуй другой поиск или режим.</p>
-          </div>
-        `;
-        updateSuggestion();
-        return;
-      }
-
-      cards.innerHTML = list.map(brawler => `
-        <article class="brawler-card">
-          <div class="brawler-top">
-            <div>
-              <h3 class="brawler-name">${brawler.name}</h3>
-              <p class="muted small">${brawler.role}</p>
-            </div>
-
-            <button class="star ${isFavorite(brawler.name) ? "active" : ""}" onclick="toggleFavorite('${brawler.name}')">
-              ⭐
-            </button>
-          </div>
-
-          <div class="tags">
-            ${brawler.modes.map(mode => `<span class="tag good">${modeNames[mode]}</span>`).join("")}
-          </div>
-
-          <div class="tags">
-            ${brawler.tags.map(tag => `<span class="tag warn">${tag}</span>`).join("")}
-          </div>
-        </article>
-      `).join("");
-
-      updateSuggestion();
-    }
-
-    function updateSuggestion() {
-      const mode = modeSelect.value;
-      const list = getFilteredBrawlers();
-
-      if (mode === "all") {
-        suggestionBox.textContent = "Выбери конкретный режим, чтобы получить более точную рекомендацию.";
-        return;
-      }
-
-      if (list.length === 0) {
-        suggestionBox.textContent = "Для этого режима по текущему фильтру ничего не найдено.";
-        return;
-      }
-
-      const top = list.slice(0, 3).map(item => item.name).join(", ");
-      suggestionBox.innerHTML = `
-        Для <b>${modeNames[mode]}</b> можно попробовать:
-        <br>${top}.
-      `;
-    }
-
-    function pickRandom() {
-      const list = getFilteredBrawlers();
-      const source = list.length > 0 ? list : brawlers;
-      const chosen = source[Math.floor(Math.random() * source.length)];
-
-      randomName.textContent = "Выбираем...";
-      randomRole.textContent = "секунду...";
-
-      let spins = 0;
-      const spin = setInterval(() => {
-        const temp = source[Math.floor(Math.random() * source.length)];
-        randomName.textContent = temp.name;
-        randomRole.textContent = temp.role;
-        spins++;
-
-        if (spins > 10) {
-          clearInterval(spin);
-          randomName.textContent = chosen.name;
-          randomRole.textContent = chosen.role;
-        }
-      }, 80);
-    }
-
-    function shuffle(array) {
-      return [...array].sort(() => Math.random() - 0.5);
-    }
-
-    function splitTeams() {
-      const players = playersInput.value
-        .split(",")
-        .map(name => name.trim())
-        .filter(Boolean);
-
-      if (players.length < 2) {
-        teamA.innerHTML = `<span class="muted small">Нужно минимум 2 игрока.</span>`;
-        teamB.innerHTML = "";
-        return;
-      }
-
-      const mixed = shuffle(players);
-      const middle = Math.ceil(mixed.length / 2);
-      const a = mixed.slice(0, middle);
-      const b = mixed.slice(middle);
-
-      teamA.innerHTML = a.map(player => `<span class="player">${player}</span>`).join("");
-      teamB.innerHTML = b.map(player => `<span class="player">${player}</span>`).join("");
-    }
-
-    searchInput.addEventListener("input", renderCards);
-    modeSelect.addEventListener("change", renderCards);
-
-    onlyFavBtn.addEventListener("click", () => {
-      onlyFavorites = !onlyFavorites;
-      onlyFavBtn.textContent = onlyFavorites ? "⭐ All brawlers" : "⭐ Favorites";
-      renderCards();
-    });
-
-    clearFavBtn.addEventListener("click", () => {
-      favorites = [];
-      saveFavorites();
-      renderCards();
-    });
-
-    randomBtn.addEventListener("click", pickRandom);
-    splitBtn.addEventListener("click", splitTeams);
-
-    exampleBtn.addEventListener("click", () => {
-      playersInput.value = "Виталя, Макс, Дима, Саша, Богдан, Рома";
-      splitTeams();
-    });
-
-    renderCards();
-  </script>
+  </main>
 </body>
 </html>
