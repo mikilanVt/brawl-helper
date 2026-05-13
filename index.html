@@ -139,7 +139,7 @@
       color: #ffffff;
       font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       font-weight: 900;
-      line-height: 1.25;
+      line-height: 1;
       letter-spacing: -0.02em;
       text-decoration: none;
       text-align: center;
@@ -148,27 +148,41 @@
       align-items: center;
       justify-content: center;
 
+      overflow: visible;
+      appearance: none;
+      -webkit-appearance: none;
+
       background: linear-gradient(180deg, #ff4a4a 0%, #d91520 55%, #9c0912 100%);
       box-shadow:
         0 7px 0 #5a050b,
         0 13px 24px rgba(0, 0, 0, 0.4),
-        inset 0 3px 0 rgba(255, 255, 255, 0.45);
-      text-shadow:
-        0 2px 0 #000000,
-        1px 0 0 #000000,
-        -1px 0 0 #000000;
+      inset 0 3px 0 rgba(255, 255, 255, 0.45);
+
       transition:
         transform 0.12s ease,
         box-shadow 0.12s ease,
         filter 0.12s ease;
     }
-
+    .button-label {
+      display: block;
+      padding: 3px 0 6px;
+      line-height: 1.15;
+      color: #ffffff;
+      -webkit-text-stroke: 1.4px #000000;
+      paint-order: stroke fill;
+      text-shadow: 0 3px 0 rgba(0, 0, 0, 0.75);
+    }
     .nav-button {
-      min-width: 122px;
-      min-height: 52px;
-      padding: 12px 18px 14px;
-      border-radius: 16px;
-      font-size: 17px;
+      min-width: 360px;
+  min-height: 92px;
+  padding: 20px 46px 26px;
+  border-radius: 24px;
+  font-size: 32px;
+  background: linear-gradient(180deg, #ffe866 0%, #ffb51f 55%, #df7000 100%);
+  box-shadow:
+    0 10px 0 #824200,
+    0 20px 36px rgba(0, 0, 0, 0.42),
+    inset 0 4px 0 rgba(255, 255, 255, 0.58);
     }
 
     .nav-button.yellow {
@@ -406,10 +420,21 @@
       </a>
 
       <nav class="nav">
-        <button class="nav-button yellow" type="button">Главная</button>
-        <button class="nav-button blue" type="button">Драфт</button>
-        <button class="nav-button" type="button">Бойцы</button>
-        <button class="nav-button gray" type="button">Карты</button>
+        <button class="nav-button yellow" type="button">
+  <span class="button-label">Главная</span>
+</button>
+
+<button class="nav-button blue" type="button">
+  <span class="button-label">Драфт</span>
+</button>
+
+<button class="nav-button" type="button">
+  <span class="button-label">Бойцы</span>
+</button>
+
+<button class="nav-button gray" type="button">
+  <span class="button-label">Карты</span>
+</button>
       </nav>
     </header>
 
@@ -423,7 +448,9 @@
         </div>
 
         <div class="main-button-wrap">
-          <button class="main-button" type="button">Начать драфт</button>
+          <button class="main-button" type="button">
+  <span class="button-label">Начать драфт</span>
+</button>
         </div>
       </div>
     </section>
