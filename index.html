@@ -21,7 +21,7 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
       color: #ffffff;
       background:
         radial-gradient(circle at 15% 18%, rgba(255, 210, 0, 0.25), transparent 28%),
@@ -59,8 +59,8 @@
       justify-content: space-between;
       gap: 20px;
 
-      background: rgba(11, 12, 24, 0.72);
-      border-bottom: 4px solid rgba(0, 0, 0, 0.55);
+      background: rgba(11, 12, 24, 0.78);
+      border-bottom: 4px solid rgba(0, 0, 0, 0.7);
       box-shadow: 0 12px 0 rgba(0, 0, 0, 0.18);
       backdrop-filter: blur(14px);
     }
@@ -104,7 +104,7 @@
 
     .logo-title {
       font-size: 26px;
-      font-weight: 1000;
+      font-weight: 900;
       letter-spacing: -0.04em;
       text-shadow:
         0 4px 0 #000000,
@@ -137,10 +137,16 @@
       border: 4px solid #000000;
       cursor: pointer;
       color: #ffffff;
-      font-weight: 1000;
-      letter-spacing: -0.025em;
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      font-weight: 900;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
       text-decoration: none;
       text-align: center;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
       background: linear-gradient(180deg, #ff4a4a 0%, #d91520 55%, #9c0912 100%);
       box-shadow:
@@ -148,9 +154,9 @@
         0 13px 24px rgba(0, 0, 0, 0.4),
         inset 0 3px 0 rgba(255, 255, 255, 0.45);
       text-shadow:
-        0 3px 0 #000000,
-        2px 0 0 #000000,
-        -2px 0 0 #000000;
+        0 2px 0 #000000,
+        1px 0 0 #000000,
+        -1px 0 0 #000000;
       transition:
         transform 0.12s ease,
         box-shadow 0.12s ease,
@@ -158,10 +164,11 @@
     }
 
     .nav-button {
-      min-width: 118px;
-      padding: 11px 16px;
+      min-width: 122px;
+      min-height: 52px;
+      padding: 12px 18px 14px;
       border-radius: 16px;
-      font-size: 16px;
+      font-size: 17px;
     }
 
     .nav-button.yellow {
@@ -170,7 +177,6 @@
         0 7px 0 #814100,
         0 13px 24px rgba(0, 0, 0, 0.4),
         inset 0 3px 0 rgba(255, 255, 255, 0.55);
-      color: #ffffff;
     }
 
     .nav-button.blue {
@@ -215,15 +221,16 @@
     .home-card {
       width: min(720px, 100%);
       min-height: 390px;
-      padding: 44px 34px 36px;
+      padding: 58px 34px 44px;
       border-radius: 36px;
       position: relative;
       overflow: hidden;
 
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      gap: 44px;
       text-align: center;
 
       background:
@@ -271,20 +278,12 @@
       width: 100%;
     }
 
-    .mini-logo {
-      width: 118px;
-      height: 118px;
-      margin: 0 auto 20px;
-      object-fit: contain;
-      filter: drop-shadow(0 9px 0 rgba(0, 0, 0, 0.58));
-    }
-
     h1 {
       margin: 0;
-      font-size: clamp(34px, 6vw, 62px);
-      line-height: 1.02;
-      font-weight: 1000;
-      letter-spacing: -0.065em;
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: -0.055em;
       color: #ffffff;
       text-shadow:
         0 6px 0 #000000,
@@ -307,18 +306,18 @@
     .main-button-wrap {
       position: relative;
       z-index: 2;
-      margin-top: 34px;
     }
 
     .main-button {
-      min-width: 260px;
-      padding: 18px 32px;
-      border-radius: 20px;
-      font-size: 24px;
+      min-width: 340px;
+      min-height: 82px;
+      padding: 22px 44px 26px;
+      border-radius: 24px;
+      font-size: 30px;
       background: linear-gradient(180deg, #ffe866 0%, #ffb51f 55%, #df7000 100%);
       box-shadow:
-        0 9px 0 #824200,
-        0 18px 34px rgba(0, 0, 0, 0.42),
+        0 10px 0 #824200,
+        0 20px 36px rgba(0, 0, 0, 0.42),
         inset 0 4px 0 rgba(255, 255, 255, 0.58);
     }
 
@@ -338,9 +337,10 @@
 
       .nav-button {
         min-width: auto;
+        min-height: 50px;
         flex: 1;
-        padding: 10px 8px;
-        font-size: 14px;
+        padding: 11px 8px 13px;
+        font-size: 15px;
       }
 
       .logo-img {
@@ -358,18 +358,20 @@
 
       .home-card {
         min-height: 360px;
-        padding: 34px 20px 28px;
+        padding: 42px 20px 34px;
         border-radius: 30px;
+        gap: 36px;
       }
 
-      .mini-logo {
-        width: 96px;
-        height: 96px;
+      h1 {
+        font-size: clamp(34px, 9vw, 50px);
       }
 
       .main-button {
-        min-width: 230px;
-        font-size: 21px;
+        min-width: 280px;
+        min-height: 74px;
+        font-size: 25px;
+        padding: 20px 32px 24px;
       }
     }
 
@@ -414,8 +416,6 @@
     <section class="content">
       <div class="home-card">
         <div class="card-content">
-          <img class="mini-logo" src="assets/images/Logo_BH.webp" alt="Brawl Helper logo" />
-
           <h1>
             Помошник в пике
             <span class="accent">для Рангового боя</span>
