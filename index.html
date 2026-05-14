@@ -58,11 +58,11 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-
       background: rgba(11, 12, 24, 0.78);
       border-bottom: 4px solid rgba(0, 0, 0, 0.7);
       box-shadow: 0 12px 0 rgba(0, 0, 0, 0.18);
       backdrop-filter: blur(14px);
+      flex-shrink: 0;
     }
 
     .logo-button {
@@ -144,21 +144,17 @@
       letter-spacing: -0.02em;
       text-decoration: none;
       text-align: center;
-
       display: inline-flex;
       align-items: center;
       justify-content: center;
-
       overflow: visible;
       appearance: none;
       -webkit-appearance: none;
-
       background: linear-gradient(180deg, #ff4a4a 0%, #d91520 55%, #9c0912 100%);
       box-shadow:
         0 7px 0 #5a050b,
         0 13px 24px rgba(0, 0, 0, 0.4),
         inset 0 3px 0 rgba(255, 255, 255, 0.45);
-
       transition:
         transform 0.12s ease,
         box-shadow 0.12s ease,
@@ -208,26 +204,48 @@
     }
 
     .nav-button:hover,
-    .main-button:hover {
-      transform: translateY(-3px) scale(1.035);
-      filter: brightness(1.12) saturate(1.12);
+    .main-button:hover,
+    .mode-card:hover,
+    .coin-switch:hover {
+      transform: translateY(-3px) scale(1.03);
+      filter: brightness(1.08) saturate(1.08);
     }
 
     .nav-button:active,
-    .main-button:active {
-      transform: translateY(5px) scale(0.98);
-      box-shadow:
-        0 2px 0 rgba(0, 0, 0, 0.85),
-        0 8px 18px rgba(0, 0, 0, 0.35),
-        inset 0 2px 0 rgba(255, 255, 255, 0.25);
+    .main-button:active,
+    .mode-card:active,
+    .coin-switch:active {
+      transform: translateY(4px) scale(0.98);
     }
 
-    .content {
+    .main-area {
       flex: 1;
+      min-height: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      padding: 28px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(18px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* HOME */
+    .home-screen {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 28px;
     }
 
     .home-card {
@@ -237,14 +255,12 @@
       border-radius: 36px;
       position: relative;
       overflow: hidden;
-
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 44px;
       text-align: center;
-
       background:
         linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.07)),
         linear-gradient(135deg, rgba(255, 35, 48, 0.22), rgba(255, 210, 0, 0.14));
@@ -340,6 +356,316 @@
       text-shadow: 0 3px 0 rgba(0, 0, 0, 0.8);
     }
 
+    /* DRAFT MODES SCREEN */
+    .draft-screen {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .draft-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-shrink: 0;
+    }
+
+    .draft-title {
+      margin: 0;
+      font-size: clamp(36px, 4vw, 56px);
+      line-height: 1.02;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.05em;
+      text-shadow:
+        0 5px 0 #000000,
+        2px 0 0 #000000,
+        -2px 0 0 #000000,
+        0 -2px 0 #000000;
+    }
+
+    .draft-title span {
+      color: #ffd21a;
+    }
+
+    .draft-side {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-shrink: 0;
+    }
+
+    .picker-hint {
+      position: relative;
+      max-width: 260px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffed7e 0%, #ffc933 52%, #ff9d00 100%);
+      border: 4px solid #000000;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 18px;
+      line-height: 1.1;
+      text-align: center;
+      -webkit-text-stroke: 0.8px #000000;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.8);
+      box-shadow:
+        0 8px 0 #8a4b00,
+        0 16px 24px rgba(0,0,0,0.28),
+        inset 0 3px 0 rgba(255,255,255,0.45);
+      animation: hintPulse 1.8s infinite ease-in-out;
+    }
+
+    .picker-hint::after {
+      content: "";
+      position: absolute;
+      right: -22px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 22px solid #000000;
+      border-top: 14px solid transparent;
+      border-bottom: 14px solid transparent;
+    }
+
+    .picker-hint::before {
+      content: "";
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 18px solid #ffbc22;
+      border-top: 11px solid transparent;
+      border-bottom: 11px solid transparent;
+      z-index: 2;
+    }
+
+    @keyframes hintPulse {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .coin-switch-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 320px;
+    }
+
+    .coin-switch {
+      position: relative;
+      width: 310px;
+      height: 96px;
+      border: 5px solid #000000;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #32384f 0%, #1b2033 100%);
+      box-shadow:
+        0 10px 0 rgba(0,0,0,0.72),
+        0 18px 36px rgba(0,0,0,0.35),
+        inset 0 4px 0 rgba(255,255,255,0.15);
+      cursor: pointer;
+      overflow: hidden;
+      transition: background 0.22s ease, box-shadow 0.22s ease, transform 0.12s ease;
+    }
+
+    .coin-switch.blue-active {
+      background: linear-gradient(180deg, #62d8ff 0%, #2397ff 55%, #0054c6 100%);
+      box-shadow:
+        0 10px 0 #06306f,
+        0 0 30px rgba(56, 176, 255, 0.55),
+        0 18px 36px rgba(0,0,0,0.35),
+        inset 0 4px 0 rgba(255,255,255,0.28);
+    }
+
+    .coin-switch.red-active {
+      background: linear-gradient(180deg, #ff7272 0%, #ff303f 55%, #b30017 100%);
+      box-shadow:
+        0 10px 0 #65000a,
+        0 0 30px rgba(255, 62, 88, 0.52),
+        0 18px 36px rgba(0,0,0,0.35),
+        inset 0 4px 0 rgba(255,255,255,0.25);
+    }
+
+    .coin-track-glow {
+      position: absolute;
+      inset: 0;
+      opacity: 0.65;
+      transition: background 0.22s ease;
+    }
+
+    .coin-switch.blue-active .coin-track-glow {
+      background: radial-gradient(circle at 25% 50%, rgba(255,255,255,0.45), transparent 35%);
+    }
+
+    .coin-switch.red-active .coin-track-glow {
+      background: radial-gradient(circle at 75% 50%, rgba(255,255,255,0.38), transparent 35%);
+    }
+
+    .coin-thumb {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: 4px solid #000000;
+      background: #ffffff;
+      display: grid;
+      place-items: center;
+      box-shadow:
+        0 6px 0 rgba(0,0,0,0.45),
+        0 10px 16px rgba(0,0,0,0.28);
+      transition:
+        transform 0.28s cubic-bezier(.22,1,.36,1),
+        box-shadow 0.22s ease,
+        background 0.22s ease;
+      z-index: 2;
+    }
+
+    .coin-switch.red-active .coin-thumb {
+      transform: translateX(214px);
+    }
+
+    .coin-img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .coin-labels {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 26px;
+      font-size: 24px;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow:
+        0 3px 0 #000000,
+        1px 0 0 #000000,
+        -1px 0 0 #000000;
+      -webkit-text-stroke: 1px #000000;
+      pointer-events: none;
+    }
+
+    .coin-label {
+      opacity: 0.7;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .coin-label.active {
+      opacity: 1;
+      transform: scale(1.06);
+    }
+
+    .modes-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
+
+    .modes-grid {
+      width: min(1040px, 100%);
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 280px));
+      justify-content: center;
+      gap: 22px 28px;
+    }
+
+    .mode-card {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1.45 / 1;
+      padding: 0;
+      border: 5px solid #000000;
+      border-radius: 28px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #3d435c, #1a1d2f);
+      box-shadow:
+        0 10px 0 rgba(0,0,0,0.72),
+        0 18px 34px rgba(0,0,0,0.35);
+      cursor: pointer;
+      transition:
+        transform 0.14s ease,
+        box-shadow 0.14s ease,
+        filter 0.14s ease,
+        outline 0.14s ease;
+    }
+
+    .mode-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .mode-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 5px 0 rgba(255,255,255,0.2);
+      pointer-events: none;
+    }
+
+    .mode-card.selected {
+      outline: 6px solid #ffd21a;
+      filter: brightness(1.08) saturate(1.08);
+      box-shadow:
+        0 10px 0 rgba(0,0,0,0.72),
+        0 0 0 5px #000000,
+        0 0 30px rgba(255, 210, 26, 0.55),
+        0 18px 34px rgba(0,0,0,0.35);
+    }
+
+    .mode-card.selected::before {
+      content: "✓";
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 4px solid #000000;
+      background: linear-gradient(180deg, #ffe867 0%, #ffba1f 60%, #df7100 100%);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      font-weight: 900;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.8);
+      -webkit-text-stroke: 1px #000000;
+      box-shadow:
+        0 4px 0 #7d4200,
+        0 8px 12px rgba(0,0,0,0.28);
+      z-index: 2;
+    }
+
+    @media (max-width: 1180px) {
+      .draft-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .draft-side {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .modes-grid {
+        grid-template-columns: repeat(3, minmax(180px, 240px));
+      }
+    }
+
     @media (max-width: 900px) {
       .topbar {
         height: auto;
@@ -372,7 +698,7 @@
         font-size: 22px;
       }
 
-      .content {
+      .screen {
         padding: 18px;
       }
 
@@ -397,21 +723,61 @@
       .main-button .button-label {
         font-size: 25px;
       }
+
+      .draft-side {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .coin-switch-wrap {
+        min-width: 0;
+      }
+
+      .picker-hint {
+        max-width: 100%;
+        font-size: 16px;
+      }
+
+      .picker-hint::after,
+      .picker-hint::before {
+        display: none;
+      }
+
+      .modes-grid {
+        grid-template-columns: repeat(2, minmax(180px, 240px));
+      }
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: 520px) {
       .nav {
         display: grid;
         grid-template-columns: 1fr 1fr;
       }
 
-      .home-card {
-        min-height: 345px;
-      }
-
       .main-button {
         width: 100%;
         min-width: 0;
+      }
+
+      .modes-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .coin-switch {
+        width: 280px;
+      }
+
+      .coin-switch.red-active .coin-thumb {
+        transform: translateX(184px);
+      }
+
+      .coin-labels {
+        font-size: 20px;
+      }
+
+      .draft-title {
+        font-size: 34px;
       }
     }
   </style>
@@ -420,7 +786,7 @@
 <body>
   <main class="page" id="home">
     <header class="topbar">
-      <a class="logo-button" href="#home" aria-label="Вернуться на главную">
+      <a class="logo-button" href="#home" aria-label="Вернуться на главную" id="logoHomeBtn">
         <img class="logo-img" src="assets/images/Logo_BH.webp" alt="Brawl Helper logo" />
 
         <span class="logo-text">
@@ -430,11 +796,11 @@
       </a>
 
       <nav class="nav">
-        <button class="nav-button yellow" type="button">
+        <button class="nav-button yellow" type="button" id="navHomeBtn">
           <span class="button-label">Главная</span>
         </button>
 
-        <button class="nav-button blue" type="button">
+        <button class="nav-button blue" type="button" id="navDraftBtn">
           <span class="button-label">Драфт</span>
         </button>
 
@@ -448,22 +814,180 @@
       </nav>
     </header>
 
-    <section class="content">
-      <div class="home-card">
-        <div class="card-content">
-          <h1>
-            Помошник в пике
-            <span class="accent">для Рангового боя</span>
-          </h1>
+    <section class="main-area">
+      <!-- HOME SCREEN -->
+      <section class="screen home-screen active" id="homeScreen">
+        <div class="home-card">
+          <div class="card-content">
+            <h1>
+              Помошник в пике
+              <span class="accent">для Рангового боя</span>
+            </h1>
+          </div>
+
+          <div class="main-button-wrap">
+            <button class="main-button" type="button" id="startDraftBtn">
+              <span class="button-label">Начать драфт</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- DRAFT SCREEN -->
+      <section class="screen draft-screen" id="draftScreen">
+        <div class="draft-top">
+          <h2 class="draft-title">Выбери <span>режим игры:</span></h2>
+
+          <div class="draft-side">
+            <div class="picker-hint">
+              Не забудь переключить<br>кто первый пикает
+            </div>
+
+            <div class="coin-switch-wrap">
+              <button class="coin-switch blue-active" id="coinSwitch" type="button" aria-label="Переключить кто первый пикает">
+                <div class="coin-track-glow"></div>
+
+                <div class="coin-labels">
+                  <span class="coin-label active" id="blueLabel">Синие</span>
+                  <span class="coin-label" id="redLabel">Красные</span>
+                </div>
+
+                <div class="coin-thumb" id="coinThumb">
+                  <img
+                    class="coin-img"
+                    id="coinImage"
+                    src="assets/images/ranked/blue_coin.webp"
+                    alt="Blue coin"
+                  />
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div class="main-button-wrap">
-          <button class="main-button" type="button">
-            <span class="button-label">Начать драфт</span>
-          </button>
+        <div class="modes-wrap">
+          <div class="modes-grid" id="modesGrid">
+            <button class="mode-card" type="button" data-mode="gem_grab" aria-label="Gem Grab">
+              <img src="assets/images/game_modes/gem_grab.webp" alt="Gem Grab">
+            </button>
+
+            <button class="mode-card" type="button" data-mode="brawl_ball" aria-label="Brawl Ball">
+              <img src="assets/images/game_modes/brawl_ball.webp" alt="Brawl Ball">
+            </button>
+
+            <button class="mode-card" type="button" data-mode="bounty" aria-label="Bounty">
+              <img src="assets/images/game_modes/bounty.webp" alt="Bounty">
+            </button>
+
+            <button class="mode-card" type="button" data-mode="hot_zone" aria-label="Hot Zone">
+              <img src="assets/images/game_modes/hot_zone.webp" alt="Hot Zone">
+            </button>
+
+            <button class="mode-card" type="button" data-mode="knockout" aria-label="Knockout">
+              <img src="assets/images/game_modes/knockout.webp" alt="Knockout">
+            </button>
+
+            <button class="mode-card" type="button" data-mode="heist" aria-label="Heist">
+              <img src="assets/images/game_modes/heist.webp" alt="Heist">
+            </button>
+          </div>
         </div>
-      </div>
+      </section>
     </section>
   </main>
+
+  <script>
+    const homeScreen = document.getElementById("homeScreen");
+    const draftScreen = document.getElementById("draftScreen");
+
+    const startDraftBtn = document.getElementById("startDraftBtn");
+    const navHomeBtn = document.getElementById("navHomeBtn");
+    const navDraftBtn = document.getElementById("navDraftBtn");
+    const logoHomeBtn = document.getElementById("logoHomeBtn");
+
+    const coinSwitch = document.getElementById("coinSwitch");
+    const coinImage = document.getElementById("coinImage");
+    const blueLabel = document.getElementById("blueLabel");
+    const redLabel = document.getElementById("redLabel");
+
+    const modeButtons = document.querySelectorAll(".mode-card");
+
+    const draftState = {
+      firstPicker: "blue",
+      selectedMode: null
+    };
+
+    function showScreen(screenName) {
+      homeScreen.classList.remove("active");
+      draftScreen.classList.remove("active");
+
+      if (screenName === "draft") {
+        draftScreen.classList.add("active");
+      } else {
+        homeScreen.classList.add("active");
+      }
+    }
+
+    function updateCoinSwitch() {
+      if (draftState.firstPicker === "blue") {
+        coinSwitch.classList.add("blue-active");
+        coinSwitch.classList.remove("red-active");
+        coinImage.src = "assets/images/ranked/blue_coin.webp";
+        coinImage.alt = "Blue coin";
+        blueLabel.classList.add("active");
+        redLabel.classList.remove("active");
+      } else {
+        coinSwitch.classList.add("red-active");
+        coinSwitch.classList.remove("blue-active");
+        coinImage.src = "assets/images/ranked/red_coin.webp";
+        coinImage.alt = "Red coin";
+        redLabel.classList.add("active");
+        blueLabel.classList.remove("active");
+      }
+    }
+
+    function toggleFirstPicker() {
+      draftState.firstPicker = draftState.firstPicker === "blue" ? "red" : "blue";
+      updateCoinSwitch();
+      console.log("First picker:", draftState.firstPicker);
+    }
+
+    function selectMode(mode) {
+      draftState.selectedMode = mode;
+
+      modeButtons.forEach(button => {
+        button.classList.toggle("selected", button.dataset.mode === mode);
+      });
+
+      console.log("Selected mode:", draftState.selectedMode);
+    }
+
+    startDraftBtn.addEventListener("click", () => {
+      showScreen("draft");
+    });
+
+    navHomeBtn.addEventListener("click", () => {
+      showScreen("home");
+    });
+
+    logoHomeBtn.addEventListener("click", (event) => {
+      event.preventDefault();
+      showScreen("home");
+    });
+
+    navDraftBtn.addEventListener("click", () => {
+      showScreen("draft");
+    });
+
+    coinSwitch.addEventListener("click", toggleFirstPicker);
+
+    modeButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        selectMode(button.dataset.mode);
+      });
+    });
+
+    updateCoinSwitch();
+  </script>
 </body>
 </html>
